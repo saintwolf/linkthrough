@@ -18,5 +18,5 @@ from django.urls import include, path
 
 urlpatterns = [
 	path('link/', include('linkthroughapp.urls')),
-    path('admin/', admin.site.urls),
+    path('admin-section/', admin.site.urls),
 ]
