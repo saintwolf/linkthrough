@@ -11,7 +11,7 @@ class Link(models.Model):
 
 
     def __str__(self):
-        return short_url.encode_url(self.pk)
+        return "http://35.189.97.205/link/{}".format(short_url.encode_url(self.pk))
 
 class LinkVisit(models.Model):
     hashed_ip_address = models.CharField(

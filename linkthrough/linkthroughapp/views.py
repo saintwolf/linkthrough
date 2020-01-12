@@ -42,7 +42,7 @@ def link_stats_view(request, tiny):
     link = get_link_from_short(tiny)
 
     visit_count = link.visits.count()
-    unique_visit_count = link.visits.values('hashed_ip_address').distinct().count()
+    unique_visit_count = link.visits.values('hashed_ip_address').distinct().order_by().count()
 
     return HttpResponse("Total Redirects: {}<br />Unique Redirects: {}".format(visit_count, unique_visit_count))
 
