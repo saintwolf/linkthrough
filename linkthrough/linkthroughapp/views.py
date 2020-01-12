@@ -21,12 +21,7 @@ def index(request):
     return HttpResponse("IP is: {}<br />Hash is: {}".format(ip_address, hash))
 
 def redirect_view(request, tiny):
-    try:
-        id = short_url.decode_url(tiny)
-    except ValueError:
-        raise Http404('Bad encoded ID.')
-
-    link = get_object_or_404(Link, pk=id)
+    link = get_link_from_short(tiny)
 
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
 
@@ -41,3 +36,21 @@ def redirect_view(request, tiny):
     l.save()
 
     return redirect(link.url)
+
+def link_stats_view(request, tiny):
+
+    link = get_link_from_short(tiny)
+
+    visit_count = link.visits.count()
+    unique_visit_count = link.visits.values('hashed_ip_address').distinct().count()
+
+    return HttpResponse("Total Redirects: {}<br />Unique Redirects: {}".format(visit_count, unique_visit_count))
+
+def get_link_from_short(tiny):
+    try:
+        id = short_url.decode_url(tiny)
+    except ValueError:
+        raise Http404('Bad encoded ID.')
+
+    link = get_object_or_404(Link, pk=id)
+    return link

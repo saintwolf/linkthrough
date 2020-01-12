@@ -22,7 +22,8 @@ class LinkVisit(models.Model):
     )
     link = models.ForeignKey(
     	'Link',
-    	on_delete = models.CASCADE
+    	on_delete = models.CASCADE,
+		related_name = 'visits'
     )
 
     def __str__(self):
