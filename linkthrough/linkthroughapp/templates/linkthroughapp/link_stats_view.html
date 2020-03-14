@@ -1,0 +1,22 @@
+{% if visit_count %}
+	<p>Visit Count: {{ visit_count }}</p>
+{% endif %}
+
+{% if unique_visit_count %}
+	<p>Unique Visit Count: {{ unique_visit_count }}</p>
+{% endif %}
+
+{% if link_visits %}
+	<table border=1>
+		<tr>
+			<th>Hashed IP Address</th>
+			<th>Time Visited</th>
+		</tr>
+		{% for visit in link_visits %}
+			<tr>
+				<td>{{ visit.hashed_ip_address }}</td>
+				<td>{{ visit.time_visited }}</td>
+			</tr>
+		{% endfor %}
+	</table>
+{% endif %}
